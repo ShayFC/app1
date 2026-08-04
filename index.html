@@ -3,120 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Smart Pantry & Meal Planner</title>
+    <title>Smart Pantry & Gourmet Planner</title>
     <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#059669">
+    <meta name="theme-color" content="#0F172A">
     <style>
-        /* --- DESIGN SYSTEM & CSS VARIABLES --- */
+        /* --- DESIGN SYSTEM & SYSTEM VARIABLES --- */
         :root {
-            --primary: #059669;
-            --primary-light: #10B981;
-            --primary-subtle: #ECFDF5;
-            --accent: #3B82F6;
+            --primary: #FF5238;
+            --primary-gradient: linear-gradient(135deg, #FF5238 0%, #FF784B 100%);
+            --secondary: #10B981;
+            --secondary-subtle: #ECFDF5;
             --warning: #F59E0B;
             --warning-subtle: #FFFBEB;
             --danger: #EF4444;
             --danger-subtle: #FEF2F2;
+            --slate-dark: #0F172A;
+            --slate-muted: #64748B;
+            --slate-light: #94A3B8;
             --bg: #F8FAFC;
-            --card-bg: #FFFFFF;
-            --text-main: #0F172A;
-            --text-muted: #64748B;
+            --surface: #FFFFFF;
             --border: #E2E8F0;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
-            --radius-sm: 8px;
-            --radius-md: 14px;
-            --radius-lg: 20px;
-            --nav-height: 70px;
+            --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.02);
+            --shadow-float: 0 20px 30px -10px rgba(15, 23, 42, 0.12);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --nav-height: 72px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: var(--bg); color: var(--text-main); padding-bottom: calc(var(--nav-height) + 24px); line-height: 1.5; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: var(--bg); color: var(--slate-dark); padding-bottom: calc(var(--nav-height) + 32px); line-height: 1.4; -webkit-font-smoothing: antialiased; }
 
-        /* Header */
+        /* --- HEADER & NAVIGATION --- */
         header { 
             background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px);
-            color: var(--text-main); 
-            padding: 16px 20px; 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            padding: 18px 20px; 
             position: sticky; 
             top: 0; 
             z-index: 10; 
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
         }
-        header h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; }
-        .icon-btn-ghost { background: transparent; border: none; font-size: 1.3rem; padding: 8px; border-radius: 50%; color: var(--text-muted); cursor: pointer; transition: background 0.2s; }
-        .icon-btn-ghost:active { background: var(--border); }
+        .header-title { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.03em; color: var(--slate-dark); }
+        .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; cursor: pointer; transition: all 0.2s; }
+        .icon-btn:active { transform: scale(0.92); background: var(--border); }
 
-        /* Layout & Container */
-        .container { padding: 20px 16px; max-width: 640px; margin: 0 auto; }
-        .section-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin: 24px 0 12px 0; display: flex; align-items: center; justify-content: space-between; }
-        .section-title:first-child { margin-top: 0; }
+        .container { padding: 20px 18px; max-width: 640px; margin: 0 auto; }
+        .section-header { font-size: 1.05rem; font-weight: 700; color: var(--slate-dark); margin: 24px 0 12px 0; letter-spacing: -0.01em; display: flex; align-items: center; justify-content: space-between; }
+        .section-header:first-child { margin-top: 0; }
 
-        /* Cards */
+        /* --- CARDS & ELEVATION --- */
         .card { 
-            background: var(--card-bg); 
+            background: var(--surface); 
             border-radius: var(--radius-md); 
-            padding: 16px; 
-            margin-bottom: 12px; 
-            box-shadow: var(--shadow-sm); 
-            border: 1px solid var(--border); 
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            padding: 18px; 
+            margin-bottom: 14px; 
+            box-shadow: var(--shadow-card); 
+            border: 1px solid rgba(226, 232, 240, 0.9); 
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .card:active { transform: scale(0.995); }
-        .card.low-stock { border-left: 4px solid var(--warning); }
-        .card-title { font-size: 1rem; font-weight: 600; color: var(--text-main); }
-        .card-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+        .card:active { transform: scale(0.985); }
+        .card.low-stock { border-left: 5px solid var(--warning); }
+        .card-title { font-size: 1.05rem; font-weight: 700; color: var(--slate-dark); letter-spacing: -0.01em; }
+        .card-subtitle { font-size: 0.85rem; color: var(--slate-muted); font-weight: 500; margin-top: 2px; }
 
-        /* Badges */
-        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
-        .badge-green { background: var(--primary-subtle); color: var(--primary); }
-        .badge-orange { background: var(--warning-subtle); color: var(--warning); }
-        .badge-red { background: var(--danger-subtle); color: var(--danger); }
+        /* --- STATS DASHBOARD BAR --- */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: var(--surface);
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            text-align: center;
+            box-shadow: var(--shadow-subtle);
+        }
+        .stat-val { font-size: 1.25rem; font-weight: 800; color: var(--primary); }
+        .stat-lbl { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--slate-muted); letter-spacing: 0.05em; margin-top: 2px; }
 
-        /* Utility Flex */
+        /* --- BADGES & TAGS --- */
+        .badge { padding: 5px 12px; border-radius: 30px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; letter-spacing: -0.01em; }
+        .badge-green { background: var(--secondary-subtle); color: var(--secondary); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .badge-orange { background: var(--warning-subtle); color: #D97706; border: 1px solid rgba(245, 158, 11, 0.2); }
+        .badge-red { background: var(--danger-subtle); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+
+        /* --- UTILITIES & FLEX --- */
         .flex { display: flex; align-items: center; }
         .flex-between { display: flex; justify-content: space-between; align-items: center; }
         .gap-2 { gap: 8px; }
-        .gap-3 { gap: 12px; }
 
-        /* Buttons & Inputs */
-        button { border: none; background: none; cursor: pointer; font-weight: 600; border-radius: var(--radius-sm); transition: all 0.2s; }
-        .btn-primary { background: var(--primary); color: white; padding: 14px 20px; font-size: 1rem; width: 100%; min-height: 48px; border-radius: var(--radius-md); box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2); }
-        .btn-primary:active { background: #047857; }
-        .btn-secondary { background: var(--bg); color: var(--text-main); border: 1px solid var(--border); padding: 10px 16px; min-height: 44px; border-radius: var(--radius-sm); }
-        .btn-secondary:active { background: var(--border); }
-        .btn-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--border); border-radius: 50%; font-size: 1.1rem; color: var(--text-main); }
-        .btn-icon:active { background: var(--border); }
-        .btn-danger { background: var(--danger-subtle); color: var(--danger); padding: 10px 16px; border-radius: var(--radius-sm); }
-        
+        /* --- BUTTONS & CONTROLS --- */
+        button { border: none; background: none; cursor: pointer; font-weight: 700; border-radius: var(--radius-sm); transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        .btn-primary { 
+            background: var(--primary-gradient); 
+            color: white; 
+            padding: 16px 24px; 
+            font-size: 1rem; 
+            width: 100%; 
+            min-height: 52px; 
+            border-radius: var(--radius-md); 
+            box-shadow: 0 8px 20px -4px rgba(255, 82, 56, 0.4); 
+            letter-spacing: -0.01em;
+        }
+        .btn-primary:active { transform: scale(0.97); }
+        .btn-secondary { background: var(--surface); color: var(--slate-dark); border: 1px solid var(--border); padding: 12px 18px; min-height: 46px; border-radius: var(--radius-sm); box-shadow: var(--shadow-subtle); }
+        .btn-secondary:active { background: var(--bg); }
+        .btn-stepper { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1px solid var(--border); border-radius: 50%; font-size: 1.1rem; color: var(--slate-dark); box-shadow: var(--shadow-subtle); }
+        .btn-stepper:active { transform: scale(0.9); background: var(--border); }
+        .btn-danger { background: var(--danger-subtle); color: var(--danger); padding: 12px 18px; border-radius: var(--radius-sm); border: 1px solid rgba(239, 68, 68, 0.2); }
+
         input, select { 
             width: 100%; 
-            padding: 12px 14px; 
+            padding: 14px 16px; 
             border: 1px solid var(--border); 
             border-radius: var(--radius-sm); 
             font-size: 0.95rem; 
-            background: var(--bg);
-            color: var(--text-main);
-            margin-bottom: 12px; 
+            background: var(--surface);
+            color: var(--slate-dark);
+            margin-bottom: 14px; 
             outline: none;
-            transition: border-color 0.2s, background 0.2s;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-subtle);
         }
-        input:focus, select:focus { border-color: var(--primary); background: #fff; }
+        input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255, 82, 56, 0.15); }
 
-        /* Navigation Bar */
+        /* --- BOTTOM NAV BAR --- */
         #bottom-nav { 
             position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
+            bottom: 0; left: 0; right: 0; 
             height: var(--nav-height); 
             background: rgba(255, 255, 255, 0.9); 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid var(--border); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(226, 232, 240, 0.8); 
             display: flex; 
             justify-content: space-around; 
             align-items: center; 
@@ -128,37 +153,37 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            color: var(--text-muted); 
+            color: var(--slate-muted); 
             font-size: 0.72rem; 
-            font-weight: 500;
-            min-width: 56px; 
-            padding: 6px 0; 
+            font-weight: 600;
+            min-width: 60px; 
+            padding: 8px 0; 
             cursor: pointer;
-            transition: color 0.2s;
+            transition: all 0.2s;
         }
-        .nav-item .icon { font-size: 1.4rem; margin-bottom: 2px; transition: transform 0.2s; }
-        .nav-item.active { color: var(--primary); font-weight: 700; }
-        .nav-item.active .icon { transform: translateY(-2px); }
+        .nav-item .icon { font-size: 1.4rem; margin-bottom: 3px; transition: transform 0.2s; }
+        .nav-item.active { color: var(--primary); font-weight: 800; }
+        .nav-item.active .icon { transform: translateY(-3px) scale(1.1); }
 
-        /* Tab Groups & Category Pills */
-        .pill-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 16px; scrollbar-width: none; }
+        /* --- SEGMENTED TABS & PILLS --- */
+        .pill-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; scrollbar-width: none; }
         .pill-container::-webkit-scrollbar { display: none; }
-        .pill { padding: 8px 16px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; white-space: nowrap; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); cursor: pointer; }
-        .pill.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2); }
+        .pill { padding: 8px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 30px; white-space: nowrap; font-size: 0.85rem; font-weight: 700; color: var(--slate-muted); cursor: pointer; transition: all 0.2s; }
+        .pill.active { background: var(--slate-dark); color: white; border-color: var(--slate-dark); box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15); }
 
-        .tab-group { display: flex; background: #E2E8F0; padding: 3px; border-radius: var(--radius-md); margin-bottom: 20px; }
-        .tab { flex: 1; text-align: center; padding: 8px 12px; font-size: 0.88rem; font-weight: 600; color: var(--text-muted); border-radius: 11px; cursor: pointer; transition: all 0.2s; }
-        .tab.active { background: var(--card-bg); color: var(--text-main); box-shadow: var(--shadow-sm); }
+        .tab-group { display: flex; background: #E2E8F0; padding: 4px; border-radius: var(--radius-md); margin-bottom: 20px; }
+        .tab { flex: 1; text-align: center; padding: 10px 14px; font-size: 0.88rem; font-weight: 700; color: var(--slate-muted); border-radius: 12px; cursor: pointer; transition: all 0.2s; }
+        .tab.active { background: var(--surface); color: var(--slate-dark); box-shadow: var(--shadow-subtle); }
 
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         
-        /* Modals */
+        /* --- MODAL DRAWER ANIMATION --- */
         .modal-overlay { 
             position: fixed; 
             top: 0; left: 0; right: 0; bottom: 0; 
-            background: rgba(15, 23, 42, 0.4); 
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.5); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             display: none; 
             justify-content: center; 
             align-items: flex-end; 
@@ -166,42 +191,57 @@
         }
         @media(min-width: 640px) { .modal-overlay { align-items: center; } }
         .modal { 
-            background: white; 
-            padding: 24px; 
+            background: var(--surface); 
+            padding: 28px 24px 32px 24px; 
             border-top-left-radius: var(--radius-lg); 
             border-top-right-radius: var(--radius-lg); 
             width: 100%; 
-            max-width: 500px; 
-            max-height: 85vh; 
+            max-width: 520px; 
+            max-height: 88vh; 
             overflow-y: auto; 
-            box-shadow: var(--shadow-lg);
-            animation: slideUp 0.25s ease-out;
+            box-shadow: var(--shadow-float);
+            animation: modalSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
         @media(min-width: 640px) { .modal { border-radius: var(--radius-lg); } }
 
-        @keyframes slideUp {
+        @keyframes modalSlideUp {
             from { transform: translateY(100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         
-        /* Views */
         .view { display: none; }
         .view.active { display: block; }
 
-        .qty-controls { display: flex; align-items: center; gap: 10px; background: var(--bg); padding: 4px; border-radius: 20px; border: 1px solid var(--border); }
-        .qty-controls span { min-width: 36px; text-align: center; font-weight: 700; font-size: 0.9rem; }
+        .qty-controls { display: flex; align-items: center; gap: 10px; background: var(--bg); padding: 5px 8px; border-radius: 30px; border: 1px solid var(--border); }
+        .qty-controls span { min-width: 38px; text-align: center; font-weight: 800; font-size: 0.95rem; }
     </style>
 </head>
 <body>
 
     <header class="flex-between">
-        <h2 id="header-title">What Can I Make?</h2>
-        <button class="icon-btn-ghost" onclick="openSettings()" aria-label="Settings">⚙️</button>
+        <h2 class="header-title" id="header-title">What Can I Make?</h2>
+        <button class="icon-btn" onclick="openSettings()" aria-label="Settings">⚙️</button>
     </header>
 
     <div id="app-content" class="container">
         <!-- View: HOME (What can I make?) -->
         <div id="view-home" class="view active">
+            <!-- Dynamic Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-card">
+                    <div class="stat-val" id="stat-pantry-count">0</div>
+                    <div class="stat-lbl">Pantry Items</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val" id="stat-ready-count" style="color:var(--secondary)">0</div>
+                    <div class="stat-lbl">Ready Meals</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val" id="stat-low-count" style="color:var(--warning)">0</div>
+                    <div class="stat-lbl">Low Stock</div>
+                </div>
+            </div>
+
             <div class="pill-container" id="home-category-pills"></div>
             <div class="tab-group">
                 <div class="tab active" onclick="setHomeTab('ready')" id="tab-ready">Ready to Make</div>
@@ -212,10 +252,10 @@
 
         <!-- View: PANTRY -->
         <div id="view-pantry" class="view">
-            <button class="btn-primary" onclick="openPantryModal()" style="margin-bottom: 20px;">+ Add Pantry Item</button>
-            <div class="section-title">Food Items</div>
+            <button class="btn-primary" onclick="openPantryModal()" style="margin-bottom: 24px;">+ Add Pantry Item</button>
+            <div class="section-header">Food Items</div>
             <div id="pantry-food-list"></div>
-            <div class="section-title">Household Items</div>
+            <div class="section-header">Household Items</div>
             <div id="pantry-household-list"></div>
         </div>
 
@@ -226,15 +266,15 @@
 
         <!-- View: PLANNER -->
         <div id="view-planner" class="view">
-            <button class="btn-primary" onclick="generateShoppingList()" style="margin-bottom: 20px;">🛒 Generate Shopping List</button>
+            <button class="btn-primary" onclick="generateShoppingList()" style="margin-bottom: 24px;">🛒 Generate Shopping List</button>
             <div id="planner-grid"></div>
         </div>
 
         <!-- View: SHOPPING -->
         <div id="view-shopping" class="view">
-            <div class="flex gap-2" style="margin-bottom: 20px;">
-                <input type="text" id="manual-shop-item" placeholder="Add manual item (e.g. Paper towels)..." style="margin-bottom:0; flex:1;">
-                <button class="btn-secondary" onclick="addManualShopItem()" style="height:46px;">Add</button>
+            <div class="flex gap-2" style="margin-bottom: 24px;">
+                <input type="text" id="manual-shop-item" placeholder="Add custom item (e.g. Olive Oil)..." style="margin-bottom:0; flex:1;">
+                <button class="btn-secondary" onclick="addManualShopItem()" style="height:50px; font-weight:700;">Add</button>
             </div>
             <div id="shopping-categories"></div>
         </div>
@@ -242,7 +282,7 @@
 
     <!-- Bottom Navigation -->
     <nav id="bottom-nav">
-        <div class="nav-item active" onclick="switchView('home')"><span class="icon">🏠</span>Home</div>
+        <div class="nav-item active" onclick="switchView('home')"><span class="icon">🍳</span>Home</div>
         <div class="nav-item" onclick="switchView('pantry')"><span class="icon">🥫</span>Pantry</div>
         <div class="nav-item" onclick="switchView('recipes')"><span class="icon">📖</span>Recipes</div>
         <div class="nav-item" onclick="switchView('planner')"><span class="icon">📅</span>Planner</div>
@@ -253,37 +293,37 @@
     <div id="modal-settings" class="modal-overlay">
         <div class="modal">
             <div class="flex-between" style="margin-bottom: 16px;">
-                <h2 style="font-size:1.2rem;">Settings</h2>
-                <button onclick="closeModals()" class="icon-btn-ghost">✕</button>
+                <h2 style="font-size:1.3rem; font-weight:800;">Settings & Data</h2>
+                <button onclick="closeModals()" class="icon-btn">✕</button>
             </div>
-            <p class="card-subtitle" style="margin-bottom: 20px;">Manage your offline app data.</p>
+            <p class="card-subtitle" style="margin-bottom: 24px;">Manage your local backup standard data.</p>
             <button class="btn-secondary" onclick="exportData()" style="width:100%; margin-bottom:12px;">📤 Export Data (JSON)</button>
             <label class="btn-secondary" style="display:block; text-align:center; width:100%; margin-bottom:12px; cursor:pointer;">
                 📥 Import Data (JSON)
                 <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importData(event)">
             </label>
-            <button class="btn-danger" onclick="resetData()" style="width:100%; margin-bottom:16px;">⚠️ Reset to Default Data</button>
-            <button class="btn-primary" onclick="closeModals()">Done</button>
+            <button class="btn-danger" onclick="resetData()" style="width:100%; margin-bottom:20px;">⚠️ Reset to Default Data</button>
+            <button class="btn-primary" onclick="closeModals()">Close</button>
         </div>
     </div>
 
     <!-- Modal: Pantry Item Add/Edit -->
     <div id="modal-pantry" class="modal-overlay">
         <div class="modal">
-            <div class="flex-between" style="margin-bottom: 16px;">
-                <h2 id="pantry-modal-title" style="font-size:1.2rem;">Add Item</h2>
-                <button onclick="closeModals()" class="icon-btn-ghost">✕</button>
+            <div class="flex-between" style="margin-bottom: 20px;">
+                <h2 id="pantry-modal-title" style="font-size:1.3rem; font-weight:800;">Add Item</h2>
+                <button onclick="closeModals()" class="icon-btn">✕</button>
             </div>
-            <label class="card-subtitle">Item Name</label>
-            <input type="text" id="pi-name" placeholder="e.g. Tomato">
+            <label class="card-subtitle" style="display:block; margin-bottom:4px;">Item Name</label>
+            <input type="text" id="pi-name" placeholder="e.g. Fresh Eggs">
             
             <div class="grid-2">
                 <div>
-                    <label class="card-subtitle">Quantity</label>
+                    <label class="card-subtitle" style="display:block; margin-bottom:4px;">Quantity</label>
                     <input type="number" id="pi-qty" placeholder="0">
                 </div>
                 <div>
-                    <label class="card-subtitle">Unit</label>
+                    <label class="card-subtitle" style="display:block; margin-bottom:4px;">Unit</label>
                     <select id="pi-unit">
                         <optgroup label="Weight"> <option value="g">g</option> <option value="kg">kg</option> <option value="oz">oz</option> <option value="lbs">lbs</option> </optgroup>
                         <optgroup label="Volume"> <option value="ml">ml</option> <option value="L">L</option> <option value="tsp">tsp</option> <option value="tbsp">tbsp</option> <option value="cup">cup</option> </optgroup>
@@ -291,16 +331,16 @@
                     </select>
                 </div>
             </div>
-            <label class="card-subtitle">Low Stock Threshold</label>
-            <input type="number" id="pi-threshold" placeholder="Alert when stock falls below this amount">
+            <label class="card-subtitle" style="display:block; margin-bottom:4px;">Low Stock Threshold</label>
+            <input type="number" id="pi-threshold" placeholder="Alert threshold">
             
-            <label class="card-subtitle">Category Type</label>
+            <label class="card-subtitle" style="display:block; margin-bottom:4px;">Type</label>
             <select id="pi-type">
-                <option value="food">Food</option>
-                <option value="household">Household</option>
+                <option value="food">Food Item</option>
+                <option value="household">Household Item</option>
             </select>
             
-            <button class="btn-primary" onclick="savePantryItem()" style="margin-top:8px; margin-bottom:8px;">Save Item</button>
+            <button class="btn-primary" onclick="savePantryItem()" style="margin-top:10px; margin-bottom:10px;">Save Item</button>
             <button class="btn-secondary" onclick="closeModals()" style="width:100%;">Cancel</button>
         </div>
     </div>
@@ -313,20 +353,20 @@
     <!-- Modal: Planner Selection -->
     <div id="modal-planner" class="modal-overlay">
         <div class="modal">
-            <div class="flex-between" style="margin-bottom: 12px;">
-                <h2 style="font-size:1.2rem;">Select Meal</h2>
-                <button onclick="closeModals()" class="icon-btn-ghost">✕</button>
+            <div class="flex-between" style="margin-bottom: 16px;">
+                <h2 style="font-size:1.3rem; font-weight:800;">Select Meal</h2>
+                <button onclick="closeModals()" class="icon-btn">✕</button>
             </div>
-            <p id="planner-slot-title" class="card-subtitle" style="margin-bottom:16px;"></p>
+            <p id="planner-slot-title" class="card-subtitle" style="margin-bottom:20px; font-size:0.95rem; font-weight:700; color:var(--primary);"></p>
             
-            <label class="card-subtitle">Recipe</label>
+            <label class="card-subtitle" style="display:block; margin-bottom:4px;">Recipe</label>
             <select id="planner-recipe-select"></select>
             
-            <label class="card-subtitle">Servings</label>
+            <label class="card-subtitle" style="display:block; margin-bottom:4px;">Servings</label>
             <input type="number" id="planner-servings" min="1" value="2" placeholder="Servings">
             
-            <button class="btn-primary" onclick="saveMealSlot()" style="margin-bottom:8px;">Save Meal</button>
-            <button class="btn-danger" onclick="clearMealSlot()" style="width:100%; margin-bottom:8px;">Clear Slot</button>
+            <button class="btn-primary" onclick="saveMealSlot()" style="margin-bottom:10px;">Save Slot</button>
+            <button class="btn-danger" onclick="clearMealSlot()" style="width:100%;">Clear Slot</button>
         </div>
     </div>
 
@@ -371,11 +411,11 @@
                 { id: 8, name: 'Dish Soap', quantity: 0, unit: 'units', type: 'household' }
             ],
             recipes: [
-                { id: 1, name: 'Tomato Pasta', tags: ['Dinner'], steps: ['Boil pasta in salted water', 'Chop tomatoes', 'Mix and cook for 10 mins'], ingredients: [ {name: 'Pasta', quantity: 150, unit: 'g'}, {name: 'Tomato', quantity: 2, unit: 'pcs'} ] },
-                { id: 2, name: 'Omelette', tags: ['Breakfast'], steps: ['Whisk eggs with a splash of milk', 'Fry in pan over medium heat'], ingredients: [ {name: 'Eggs', quantity: 3, unit: 'pcs'}, {name: 'Milk', quantity: 30, unit: 'ml'} ] },
-                { id: 3, name: 'Pancakes', tags: ['Breakfast', 'Dessert'], steps: ['Mix flour, milk, eggs until smooth', 'Fry on hot griddle'], ingredients: [ {name: 'Flour', quantity: 100, unit: 'g'}, {name: 'Milk', quantity: 150, unit: 'ml'}, {name: 'Eggs', quantity: 1, unit: 'pcs'} ] },
-                { id: 4, name: 'Chicken Salad', tags: ['Lunch'], steps: ['Grill chicken until cooked through', 'Chop veggies', 'Toss together with dressing'], ingredients: [ {name: 'Chicken Breast', quantity: 200, unit: 'g'}, {name: 'Tomato', quantity: 1, unit: 'pcs'} ] },
-                { id: 5, name: 'Scrambled Eggs', tags: ['Breakfast'], steps: ['Scramble eggs over low heat until fluffy'], ingredients: [ {name: 'Eggs', quantity: 2, unit: 'pcs'} ] }
+                { id: 1, name: 'Tomato Pasta', tags: ['Dinner'], steps: ['Boil pasta in salted water', 'Chop tomatoes and cook in pan', 'Combine pasta with tomato sauce'], ingredients: [ {name: 'Pasta', quantity: 150, unit: 'g'}, {name: 'Tomato', quantity: 2, unit: 'pcs'} ] },
+                { id: 2, name: 'Fluffy Omelette', tags: ['Breakfast'], steps: ['Whisk eggs with milk', 'Fry in butter over medium heat'], ingredients: [ {name: 'Eggs', quantity: 3, unit: 'pcs'}, {name: 'Milk', quantity: 30, unit: 'ml'} ] },
+                { id: 3, name: 'Golden Pancakes', tags: ['Breakfast', 'Dessert'], steps: ['Mix flour, milk, and eggs', 'Fry small scoops on griddle'], ingredients: [ {name: 'Flour', quantity: 100, unit: 'g'}, {name: 'Milk', quantity: 150, unit: 'ml'}, {name: 'Eggs', quantity: 1, unit: 'pcs'} ] },
+                { id: 4, name: 'Grilled Chicken Salad', tags: ['Lunch'], steps: ['Grill chicken breast', 'Chop fresh tomatoes', 'Toss together'], ingredients: [ {name: 'Chicken Breast', quantity: 200, unit: 'g'}, {name: 'Tomato', quantity: 1, unit: 'pcs'} ] },
+                { id: 5, name: 'Scrambled Eggs', tags: ['Breakfast'], steps: ['Scramble eggs gently over low heat'], ingredients: [ {name: 'Eggs', quantity: 2, unit: 'pcs'} ] }
             ],
             mealPlan: {},
             shoppingList: []
@@ -410,11 +450,22 @@
         }
 
         function renderCurrentView() {
+            updateDashboardStats();
             if(currentView === 'home') renderHome();
             if(currentView === 'pantry') renderPantry();
             if(currentView === 'recipes') renderRecipes();
             if(currentView === 'planner') renderPlanner();
             if(currentView === 'shopping') renderShoppingList();
+        }
+
+        function updateDashboardStats() {
+            const totalPantry = state.pantry.length;
+            const lowStock = state.pantry.filter(p => p.type === 'food' && p.quantity <= p.lowStockThreshold).length;
+            const readyRecipes = state.recipes.filter(r => getRecipeMatch(r, 1).length === 0).length;
+
+            document.getElementById('stat-pantry-count').innerText = totalPantry;
+            document.getElementById('stat-ready-count').innerText = readyRecipes;
+            document.getElementById('stat-low-count').innerText = lowStock;
         }
 
         /** --- 4. ENGINE: MATCHING & COOKING --- **/
@@ -437,7 +488,7 @@
         }
 
         function cookRecipe(recipeId, servings) {
-            if(!confirm(`Cook this recipe for ${servings} serving(s)? This will deduct ingredients from your pantry.`)) return;
+            if(!confirm(`Cook this recipe for ${servings} serving(s)? Ingredients will be deducted from your pantry.`)) return;
             const recipe = state.recipes.find(r => r.id == recipeId);
             const missing = getRecipeMatch(recipe, servings);
             if(missing.length > 0) {
@@ -455,7 +506,7 @@
             });
             closeModals();
             saveState();
-            alert('Ingredients deducted from pantry!');
+            alert('Ingredients deducted!');
         }
 
         /** --- 5. VIEW RENDERERS --- **/
@@ -486,19 +537,19 @@
                 if(homeTab === 'ready' && missingCount > 0) return;
                 if(homeTab === 'almost' && (missingCount === 0 || missingCount > 2)) return;
 
-                let badgeHtml = missingCount === 0 ? `<span class="badge badge-green">✓ Ready to Cook</span>` : 
+                let badgeHtml = missingCount === 0 ? `<span class="badge badge-green">✓ 100% Ready</span>` : 
                     `<span class="badge badge-orange">Missing ${missingCount}: ${missing.map(m => m.name).join(', ')}</span>`;
 
                 list.innerHTML += `
                     <div class="card" onclick="openRecipeModal(${r.id})">
-                        <div class="flex-between" style="margin-bottom:6px;">
+                        <div class="flex-between" style="margin-bottom:8px;">
                             <div class="card-title">${r.name}</div>
                             ${badgeHtml}
                         </div>
                         <div class="card-subtitle">${r.tags.join(' • ')} — ${r.ingredients.length} Ingredients</div>
                     </div>`;
             });
-            if(list.innerHTML === '') list.innerHTML = `<p class="card-subtitle" style="text-align:center; padding: 24px 0;">No recipes match this filter.</p>`;
+            if(list.innerHTML === '') list.innerHTML = `<p class="card-subtitle" style="text-align:center; padding: 32px 0;">No recipes match this filter.</p>`;
         }
 
         /* PANTRY VIEW */
@@ -513,13 +564,13 @@
                     fList.innerHTML += `
                         <div class="card flex-between ${isLow ? 'low-stock' : ''}">
                             <div>
-                                <div class="card-title" onclick="editPantryItem(${item.id})">${item.name} <span style="font-size:0.8rem; cursor:pointer; opacity:0.6;">✏️</span></div>
-                                <div class="card-subtitle">${isLow ? `<span class="badge badge-orange">Low Stock</span> ` : ''}Alert below ${item.lowStockThreshold} ${item.unit}</div>
+                                <div class="card-title" onclick="editPantryItem(${item.id})">${item.name} <span style="font-size:0.8rem; opacity:0.5;">✏️</span></div>
+                                <div class="card-subtitle">${isLow ? `<span class="badge badge-orange">Low Stock</span> ` : ''}Threshold: ${item.lowStockThreshold} ${item.unit}</div>
                             </div>
                             <div class="qty-controls">
-                                <button class="btn-icon" onclick="adjustPantryQty(${item.id}, -1)">-</button>
-                                <span>${item.quantity}<br><small style="font-size:0.65rem; color:var(--text-muted); font-weight:normal;">${item.unit}</small></span>
-                                <button class="btn-icon" onclick="adjustPantryQty(${item.id}, 1)">+</button>
+                                <button class="btn-stepper" onclick="adjustPantryQty(${item.id}, -1)">-</button>
+                                <span>${item.quantity}<br><small style="font-size:0.65rem; color:var(--slate-muted); font-weight:600;">${item.unit}</small></span>
+                                <button class="btn-stepper" onclick="adjustPantryQty(${item.id}, 1)">+</button>
                             </div>
                         </div>`;
                 } else {
@@ -527,10 +578,10 @@
                     hList.innerHTML += `
                         <div class="card flex-between ${!inStock ? 'low-stock' : ''}">
                             <div>
-                                <div class="card-title" onclick="editPantryItem(${item.id})">${item.name} <span style="font-size:0.8rem; cursor:pointer; opacity:0.6;">✏️</span></div>
+                                <div class="card-title" onclick="editPantryItem(${item.id})">${item.name} <span style="font-size:0.8rem; opacity:0.5;">✏️</span></div>
                             </div>
-                            <button class="badge ${inStock ? 'badge-green' : 'badge-red'}" style="border:none; padding:8px 14px; font-size:0.85rem; cursor:pointer;" onclick="toggleHousehold(${item.id})">
-                                ${inStock ? '✓ In Stock' : '✕ Need More'}
+                            <button class="badge ${inStock ? 'badge-green' : 'badge-red'}" style="padding:8px 16px; font-size:0.85rem; cursor:pointer;" onclick="toggleHousehold(${item.id})">
+                                ${inStock ? '✓ In Stock' : '✕ Out of Stock'}
                             </button>
                         </div>`;
                 }
@@ -561,7 +612,7 @@
                             <div class="card-title">${r.name}</div>
                             <div class="card-subtitle">${r.tags.join(' • ')}</div>
                         </div>
-                        <span style="color:var(--text-muted); font-size:1.2rem;">➔</span>
+                        <span style="color:var(--slate-muted); font-weight:bold; font-size:1.2rem;">➔</span>
                     </div>`;
             });
         }
@@ -575,16 +626,16 @@
             const grid = document.getElementById('planner-grid');
             grid.innerHTML = '';
             DAYS.forEach(day => {
-                let html = `<div style="margin-bottom: 20px;"><div class="section-title">${day}</div><div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:4px;">`;
+                let html = `<div style="margin-bottom: 22px;"><div class="section-header">${day}</div><div style="display:flex; gap:12px; overflow-x:auto; padding-bottom:6px;">`;
                 MEALS.forEach(meal => {
                     let slotKey = `${day}-${meal}`;
                     let plan = state.mealPlan[slotKey];
-                    let recipeName = plan ? state.recipes.find(r=>r.id==plan.recipeId)?.name : '+ Add Meal';
+                    let recipeName = plan ? state.recipes.find(r=>r.id==plan.recipeId)?.name : '+ Add';
                     html += `
-                        <div class="card" style="min-width:140px; margin-bottom:0; cursor:pointer; ${plan ? 'background: var(--primary-subtle); border-color: var(--primary-light);' : ''}" onclick="openPlannerModal('${day}', '${meal}')">
-                            <div class="card-subtitle" style="${plan ? 'color: var(--primary); font-weight: 600;' : ''}">${meal}</div>
-                            <div style="font-weight:700; margin-top:4px; font-size:0.95rem; color: ${plan ? 'var(--primary)' : 'var(--text-muted)'}">${recipeName}</div>
-                            ${plan ? `<div class="card-subtitle" style="color:var(--primary); font-weight:500;">${plan.servings} serving(s)</div>` : ''}
+                        <div class="card" style="min-width:145px; margin-bottom:0; cursor:pointer; ${plan ? 'background: var(--secondary-subtle); border-color: rgba(16, 185, 129, 0.3);' : ''}" onclick="openPlannerModal('${day}', '${meal}')">
+                            <div class="card-subtitle" style="${plan ? 'color: var(--secondary); font-weight: 700;' : ''}">${meal}</div>
+                            <div style="font-weight:800; margin-top:6px; font-size:0.95rem; color: ${plan ? 'var(--slate-dark)' : 'var(--slate-muted)'}">${recipeName}</div>
+                            ${plan ? `<div class="card-subtitle" style="color:var(--secondary); font-weight:600; margin-top:2px;">${plan.servings} serving(s)</div>` : ''}
                         </div>`;
                 });
                 html += `</div></div>`;
@@ -670,7 +721,7 @@
             const container = document.getElementById('shopping-categories');
             container.innerHTML = '';
             if(state.shoppingList.length === 0) {
-                container.innerHTML = `<div class="card" style="text-align:center; padding:32px 16px;"><p class="card-subtitle">Your shopping list is empty! Click "Generate Shopping List" in the Planner tab to fill it based on your meal plan.</p></div>`;
+                container.innerHTML = `<div class="card" style="text-align:center; padding:40px 20px;"><p class="card-subtitle">Your shopping list is clear! Use the Meal Planner to calculate missing ingredients automatically.</p></div>`;
                 return;
             }
 
@@ -682,15 +733,15 @@
             });
 
             for(let cat in groups) {
-                let html = `<div class="section-title">${cat}</div>`;
+                let html = `<div class="section-header">${cat}</div>`;
                 groups[cat].forEach(item => {
                     html += `
-                        <div class="card flex-between" style="padding:12px 16px;">
+                        <div class="card flex-between" style="padding:14px 18px;">
                             <div>
                                 <div class="card-title">${item.name}</div>
-                                <div class="card-subtitle">${item.isManual ? 'Manual Item' : `${item.quantity} ${item.unit}`}</div>
+                                <div class="card-subtitle">${item.isManual ? 'Manual Add' : `${item.quantity} ${item.unit}`}</div>
                             </div>
-                            <button class="btn-icon" style="background: var(--primary-subtle); color: var(--primary); border-color: var(--primary-light);" onclick="checkOffShoppingItem(${item.id})">✓</button>
+                            <button class="btn-stepper" style="background: var(--secondary-subtle); color: var(--secondary); border-color: rgba(16, 185, 129, 0.3); width:38px; height:38px;" onclick="checkOffShoppingItem(${item.id})">✓</button>
                         </div>`;
                 });
                 container.innerHTML += html;
@@ -700,7 +751,7 @@
         /** --- 6. MODAL HANDLERS --- **/
         function closeModals() { document.querySelectorAll('.modal-overlay').forEach(el => el.style.display = 'none'); }
         
-        // Recipe Detail
+        // Recipe Detail Modal
         let currentRecipeScale = 1;
         function openRecipeModal(id) {
             let r = state.recipes.find(x => x.id === id);
@@ -709,28 +760,28 @@
             
             const renderScale = () => {
                 let ingHtml = r.ingredients.map(ing => {
-                    return `<li style="padding:10px 0; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; font-size:0.95rem;"><span>${ing.name}</span><span style="font-weight:600; color:var(--text-muted);">${round(ing.quantity * currentRecipeScale)} ${ing.unit}</span></li>`;
+                    return `<li style="padding:12px 0; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; font-size:0.95rem;"><span style="font-weight:600;">${ing.name}</span><span style="font-weight:700; color:var(--primary);">${round(ing.quantity * currentRecipeScale)} ${ing.unit}</span></li>`;
                 }).join('');
-                let stepHtml = r.steps.map((s,i) => `<li style="margin-left:20px; margin-bottom:10px; font-size:0.95rem; color:var(--text-main);">${s}</li>`).join('');
+                let stepHtml = r.steps.map((s,i) => `<li style="margin-left:20px; margin-bottom:12px; font-size:0.95rem; color:var(--slate-dark);">${s}</li>`).join('');
 
                 document.getElementById('recipe-modal-content').innerHTML = `
-                    <div class="flex-between" style="margin-bottom:16px;">
-                        <h2 style="font-size:1.3rem;">${r.name}</h2> 
-                        <button onclick="closeModals()" class="icon-btn-ghost">✕</button>
+                    <div class="flex-between" style="margin-bottom:18px;">
+                        <h2 style="font-size:1.35rem; font-weight:800;">${r.name}</h2> 
+                        <button onclick="closeModals()" class="icon-btn">✕</button>
                     </div>
-                    <div style="background:var(--bg); padding:12px 16px; border-radius:var(--radius-sm); border:1px solid var(--border); margin-bottom:20px;" class="flex-between">
-                        <span style="font-weight:600; font-size:0.9rem;">Servings</span>
+                    <div style="background:var(--bg); padding:14px 18px; border-radius:var(--radius-sm); border:1px solid var(--border); margin-bottom:24px;" class="flex-between">
+                        <span style="font-weight:700; font-size:0.95rem;">Scale Servings</span>
                         <div class="qty-controls">
-                            <button class="btn-icon" style="width:30px; height:30px;" onclick="updateScale(-1)">-</button>
+                            <button class="btn-stepper" style="width:30px; height:30px;" onclick="updateScale(-1)">-</button>
                             <span id="scale-val">${currentRecipeScale}</span>
-                            <button class="btn-icon" style="width:30px; height:30px;" onclick="updateScale(1)">+</button>
+                            <button class="btn-stepper" style="width:30px; height:30px;" onclick="updateScale(1)">+</button>
                         </div>
                     </div>
-                    <div class="section-title">Ingredients</div>
-                    <ul style="list-style:none; margin-bottom:20px;">${ingHtml}</ul>
-                    <div class="section-title">Instructions</div>
-                    <ol style="margin-bottom:24px;">${stepHtml}</ol>
-                    <button class="btn-primary" onclick="cookRecipe(${r.id}, currentRecipeScale)">👨‍🍳 Cooked This (Deduct Pantry)</button>
+                    <div class="section-header">Ingredients</div>
+                    <ul style="list-style:none; margin-bottom:24px;">${ingHtml}</ul>
+                    <div class="section-header">Instructions</div>
+                    <ol style="margin-bottom:28px;">${stepHtml}</ol>
+                    <button class="btn-primary" onclick="cookRecipe(${r.id}, currentRecipeScale)">👨‍🍳 Cooked This (Deduct Stock)</button>
                 `;
             };
             
@@ -739,7 +790,7 @@
             document.getElementById('modal-recipe').style.display = 'flex';
         }
 
-        // Pantry Add/Edit
+        // Pantry Modal
         let editingPantryId = null;
         function openPantryModal(id = null) {
             editingPantryId = id;
@@ -782,7 +833,7 @@
         }
         function editPantryItem(id) { openPantryModal(id); }
 
-        // Planner Slot
+        // Planner Slot Modal
         function openPlannerModal(day, meal) {
             activePlannerSlot = `${day}-${meal}`;
             document.getElementById('planner-slot-title').innerText = `${day} — ${meal}`;
@@ -815,7 +866,7 @@
             closeModals();
         }
 
-        // Settings
+        // Settings Modal
         function openSettings() { document.getElementById('modal-settings').style.display = 'flex'; }
         function exportData() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
@@ -842,7 +893,7 @@
             reader.readAsText(file);
         }
         function resetData() {
-            if(confirm("Are you sure? All custom recipes and pantry changes will be lost.")) {
+            if(confirm("Are you sure? All custom recipes and pantry changes will be reset.")) {
                 state = JSON.parse(JSON.stringify(DEFAULT_DATA));
                 saveState();
                 closeModals();
